@@ -1,10 +1,13 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     PUBLISH_GROUP_ID = 'com.flurgle'
     PUBLISH_ARTIFACT_ID = 'camerakit'
     PUBLISH_VERSION = '0.9.18'
 }
+
+group='com.github.FlipSmartInstall'
 
 android {
     compileSdkVersion 25
