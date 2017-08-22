@@ -146,8 +146,11 @@ public class Camera1 extends CameraImpl {
                     mFlash = FLASH_OFF;
                 }
             }
-
-            mCamera.setParameters(mCameraParameters);
+            try {
+                mCamera.setParameters(mCameraParameters);
+            } catch (RuntimeException e) {
+                Log.w(TAG, "Dirty RuntimeException catch on setParameters in Flash: " + e.getMessage());
+            }
         } else {
             mFlash = flash;
         }
@@ -174,7 +177,7 @@ public class Camera1 extends CameraImpl {
                     try {
                         attachFocusTapListener();
                     } catch (RuntimeException e) {
-                        Log.w(TAG, "Dirty RuntimeException catch: " + e.getMessage());
+                        Log.w(TAG, "Dirty RuntimeException catch on setParameters in Focus: " + e.getMessage());
                     }
                     final List<String> modes = mCameraParameters.getSupportedFocusModes();
                     if (modes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
