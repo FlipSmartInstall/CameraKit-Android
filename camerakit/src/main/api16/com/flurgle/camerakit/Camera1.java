@@ -7,8 +7,8 @@ import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -172,7 +171,11 @@ public class Camera1 extends CameraImpl {
 
             case FOCUS_TAP:
                 if (mCameraParameters != null) {
-                    attachFocusTapListener();
+                    try {
+                        attachFocusTapListener();
+                    } catch (RuntimeException e) {
+                        Log.w(TAG, "Dirty RuntimeException catch: " + e.getMessage());
+                    }
                     final List<String> modes = mCameraParameters.getSupportedFocusModes();
                     if (modes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
                         mCameraParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
